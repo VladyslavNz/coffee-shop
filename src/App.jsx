@@ -1,8 +1,11 @@
 import React from 'react'
+import Hero from './components/Hero'
 
 const App = () => {
   return (
-    <div>App</div>
+    <div className='overflow-x-hidden '>
+      <Hero />
+    </div>
   )
 }
 
