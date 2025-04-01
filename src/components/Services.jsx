@@ -91,7 +91,10 @@ const Services = () => {
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
       >
         {servicesData.map((service) => (
-          <motion.div className="text-center p-4 space-y-6">
+          <motion.div
+            variants={cardVariants}
+            className="text-center p-4 space-y-6"
+          >
             <img
               src={service.image}
               alt=""
