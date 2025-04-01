@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import Coffee1 from "../assets/coffee/coffee1.png";
 import Coffee3 from "../assets/coffee/coffee3.png";
 
@@ -50,13 +50,21 @@ const containerVariants = {
 };
 
 const Services = () => {
+  const titleRef = useRef(null);
+  const descRef = useRef(null);
+  const cardsRef = useRef(null);
+
+  const titleInView = useInView(titleRef, { once: true });
+  const descInView = useInView(descRef, { once: true });
+  const cardsInView = useInView(cardsRef, { once: true, amount: 0.3 });
+
   return (
-    <div className="container my-16 space-y-4">
+    <div className="container my-16 space-y-4 mx-auto">
       {/* header section  */}
       <div className="text-center max-w-lg mx-auto space-y-2">
         <motion.h1
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          ref={titleRef}
+          animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
           transition={{
             type: "spring",
             stiffness: 150,
@@ -68,8 +76,10 @@ const Services = () => {
           Fresh and <span className="text-primary">Tasty coffee</span>
         </motion.h1>
         <motion.p
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          ref={descRef}
+          animate={
+            descInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }
+          }
           transition={{
             type: "spring",
             stiffness: 150,
@@ -84,14 +94,15 @@ const Services = () => {
       </div>
       {/* card section  */}
       <motion.div
+        ref={cardsRef}
         variants={containerVariants}
         initial="hidden"
-        whileInView={"visible"}
-        viewport={{ amount: 0.8 }}
+        animate={cardsInView ? "visible" : "hidden"}
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
       >
         {servicesData.map((service) => (
           <motion.div
+            key={service.id}
             variants={cardVariants}
             className="text-center p-4 space-y-6"
           >

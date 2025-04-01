@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   FaFacebook,
   FaGoogle,
@@ -8,17 +8,25 @@ import {
 } from "react-icons/fa";
 import { FaMapLocation } from "react-icons/fa6";
 import CreditCards from "../assets/website/credit-cards.webp";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 const Footer = () => {
+  const section1Ref = useRef(null);
+  const section2Ref = useRef(null);
+  const section3Ref = useRef(null);
+  
+  const section1InView = useInView(section1Ref, { once: true });
+  const section2InView = useInView(section2Ref, { once: true });
+  const section3InView = useInView(section3Ref, { once: true });
+
   return (
     <div className="bg-gradient-to-r from-primary to-primary-dark pt-12 pb-8 text-white">
-      <div className="container">
+      <div className="container mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {/* company details section  */}
           <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            ref={section1Ref}
+            animate={section1InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
             transition={{
               delay: 0.2,
               duration: 0.6,
@@ -44,8 +52,8 @@ const Footer = () => {
           </motion.div>
           {/* Footer links section  */}
           <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            ref={section2Ref}
+            animate={section2InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
             transition={{
               delay: 0.4,
               duration: 0.6,
@@ -76,8 +84,8 @@ const Footer = () => {
           </motion.div>
           {/* Social links section  */}
           <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            ref={section3Ref}
+            animate={section3InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
             transition={{
               delay: 0.6,
               duration: 0.6,

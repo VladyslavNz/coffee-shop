@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useRef } from "react";
 import WorldMap from "../assets/world-map.png";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 const WhereToBuy = () => {
+  const titleRef = useRef(null);
+  const inputsRef1 = useRef(null);
+  const inputsRef2 = useRef(null);
+  const buttonRef = useRef(null);
+  const mapRef = useRef(null);
+
+  const titleInView = useInView(titleRef, { once: true });
+  const inputs1InView = useInView(inputsRef1, { once: true });
+  const inputs2InView = useInView(inputsRef2, { once: true });
+  const buttonInView = useInView(buttonRef, { once: true });
+  const mapInView = useInView(mapRef, { once: true });
+
   return (
-    <div className="container my-36">
+    <div className="container my-36 mx-auto">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 place-items-center">
         {/* form section  */}
         <div className="space-y-8">
           <motion.h1
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            ref={titleRef}
+            animate={
+              titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }
+            }
             transition={{
               type: "spring",
               stiffness: 100,
@@ -22,8 +36,10 @@ const WhereToBuy = () => {
             Buy our products from anywhere
           </motion.h1>
           <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            ref={inputsRef1}
+            animate={
+              inputs1InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }
+            }
             transition={{
               type: "spring",
               stiffness: 100,
@@ -44,8 +60,10 @@ const WhereToBuy = () => {
             ></input>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            ref={inputsRef2}
+            animate={
+              inputs2InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }
+            }
             transition={{
               type: "spring",
               stiffness: 100,
@@ -66,8 +84,10 @@ const WhereToBuy = () => {
             ></input>
           </motion.div>
           <motion.button
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            ref={buttonRef}
+            animate={
+              buttonInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }
+            }
             transition={{
               type: "spring",
               stiffness: 100,
@@ -82,8 +102,10 @@ const WhereToBuy = () => {
         {/* world map section  */}
         <div className="col-span-2">
           <motion.img
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            ref={mapRef}
+            animate={
+              mapInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }
+            }
             transition={{
               type: "spring",
               stiffness: 100,
